@@ -22,19 +22,19 @@ app.get('/moviedb', (req, res) =>{
     )
 })
 
-app.post('/moviedb', (req, res) =>{
+app.post('/create', (req, res) =>{
     connection.query(
-        'INSERT INTO movie(name_movie,description,release_date,poster) VALUES (?,?,?,?)',
+        'INSERT INTO movie (name_movie,description,release_date,poster) VALUES (?,?,?,?)',
         function(err, results, fields){
             res.json(results);
         }
     )
 })
 
-app.delete('/moviedb', (req, res) =>{
+app.delete('/delete', (req, res) =>{
     connection.query(
         'DELETE FROM movie WHERE number = ?',
-        [req.body.id],
+        // [req.body.id],
         function(err, results, fields){
             console.log(results)
             res.json(results)
