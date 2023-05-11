@@ -22,9 +22,10 @@ app.get('/moviedb', (req, res) =>{
     )
 })
 
-app.post('/moviedb', (req, res) =>{
+app.post('/moviedbPost', (req, res) =>{
+
     connection.query(
-        'INSERT INTO moviedb.movie (name_movie,description,release_date,poster) VALUES ("?","?","?","?")',
+        'INSERT INTO moviedb.movie (name_movie,description,release_date,poster) VALUES (?,?,?,?)',
         function(err, results, fields){
             console.log(results)
             res.send(results)
