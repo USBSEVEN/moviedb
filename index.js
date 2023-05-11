@@ -22,13 +22,14 @@ app.get('/moviedb', (req, res) =>{
     )
 })
 
-app.post('/moviedbPost', (req, res) =>{
+app.post('/create', (req, res) =>{
 
     connection.query(
         'INSERT INTO moviedb.movie (name_movie,description,release_date,poster) VALUES (?,?,?,?)',
+        [req.body.name_movie, req.body.description, req.body.release_date, req.body.poster],
         function(err, results, fields){
             console.log(results)
-            res.send(results)
+            res.json(results);
         }
     )
 })
