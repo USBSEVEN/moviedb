@@ -26,7 +26,7 @@ app.post('/create', (req, res) =>{
     connection.query(
         'INSERT INTO movie (name_movie,description,release_date,poster) VALUES (?,?,?,?)',
         function(err, results, fields){
-            res.json(results);
+            res.send(results);
         }
     )
 })
@@ -37,7 +37,7 @@ app.delete('/delete', (req, res) =>{
         // [req.body.id],
         function(err, results, fields){
             console.log(results)
-            res.json(results)
+            res.send(results)
         }
     )
 })
