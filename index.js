@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
     res.send('Hi')
 })
 
-app.get('/moviedb', (req, res, next) =>{
+app.get('/movie', (req, res, next) =>{
     connection.query(
         'SELECT * FROM movie',
         function(err, results, fields){
@@ -22,7 +22,7 @@ app.get('/moviedb', (req, res, next) =>{
     );
 })
 
-app.post('/moviedb', function (req, res, next) {
+app.post('/movie', function (req, res, next) {
     connection.query(
       'INSERT INTO `movie`(`name_movie`, `description`, `release_date`, `poster`) VALUES (?, ?, ?, ?)',
       [req.body.name_movie, req.body.description, req.body.release_date, req.body.poster],
@@ -32,7 +32,7 @@ app.post('/moviedb', function (req, res, next) {
     );
   })
 
-  app.put('/moviedb', function (req, res, next) {
+  app.put('/movie', function (req, res, next) {
     connection.query(
       'UPDATE `movie` SET `name_movie` = ?, `description` = ?, `release_date` = ?, `poster` = ? WHERE number = ?',
       [req.body.name_movie, req.body.description, req.body.release_date, req.body.poster, req.body.number],
@@ -42,7 +42,7 @@ app.post('/moviedb', function (req, res, next) {
     );
   })
 
-  app.delete('/moviedb', function (req, res, next) {
+  app.delete('/movie', function (req, res, next) {
     connection.query(
       'DELETE FROM `movie` WHERE number = ?',
       [req.body.number],
