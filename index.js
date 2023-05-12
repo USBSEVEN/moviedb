@@ -23,7 +23,7 @@ app.get('/movie', (req, res, next) =>{
 })
 
 app.get('/movie/:number', function (req, res, next) {
-  const id = req.params.id;
+  const number = req.params.number;
   connection.query(
     'SELECT * FROM movie WHERE number = ?',
     [number],
