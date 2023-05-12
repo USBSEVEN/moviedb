@@ -1,47 +1,56 @@
 var express = require('express')
 var cors = require('cors')
-var app = express()
-
 const mysql = require('mysql2')
 require('dotenv').config()
 
-
+var app = express()
 app.use(cors())
+app.use(express.json())
 
 const connection = mysql.createConnection(process.env.DATABASE_URL)
 app.get('/', (req, res) => {
     res.send('Hi')
 })
 
-app.get('/moviedb', (req, res) =>{
+app.get('/moviedb', (req, res, next) =>{
     connection.query(
         'SELECT * FROM movie',
         function(err, results, fields){
             console.log(results)
-            res.json(results)
+            res.json(results);
         }
-    )
+    );
 })
 
-app.post('/create', (req, res) =>{
+app.post('/moviedb', function (req, res, next) {
     connection.query(
-        'INSERT INTO movie (name_movie,description,release_date,poster) VALUES (?,?,?,?)',
-        function(err, results, fields){
-            res.send(results);
-        }
-    )
-})
+      'INSERT INTO `movie`(`name_movie`, `description`, `release_date`, `poster`) VALUES (?, ?, ?, ?)',
+      [req.body.name_movie, req.body.description, req.body.release_date, req.body.poster],
+      function(err, results) {
+        res.json(results);
+      }
+    );
+  })
 
-app.delete('/delete', (req, res) =>{
+  app.put('/moviedb', function (req, res, next) {
     connection.query(
-        'DELETE FROM movie WHERE number = ?',
-        // [req.body.id],
-        function(err, results, fields){
-            console.log(results)
-            res.send(results)
-        }
-    )
-})
+      'UPDATE `movie` SET `name_movie`= ?, `lname`= ?, `description`= ?, `release_date`= ?, `poster`= ? WHERE number = ?',
+      [req.body.name_movie, req.body.description, req.body.release_date, req.body.poster, req.body.number],
+      function(err, results) {
+        res.json(results);
+      }
+    );
+  })
+
+  app.delete('/moviedb', function (req, res, next) {
+    connection.query(
+      'DELETE FROM `movie` WHERE number = ?',
+      [req.body.number],
+      function(err, results) {
+        res.json(results);
+      }
+    );
+  })
 
 app.listen(process.env.PORT || 3000)
 // connection.end()
