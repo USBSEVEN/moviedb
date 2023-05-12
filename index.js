@@ -25,7 +25,7 @@ app.get('/movie', (req, res, next) =>{
 app.get('/movie/:number', function (req, res, next) {
   const id = req.params.id;
   connection.query(
-    'SELECT * FROM `movie` WHERE `number` = ?',
+    'SELECT * FROM movie WHERE number = ?',
     [number],
     function(err, results) {
       res.json(results);
