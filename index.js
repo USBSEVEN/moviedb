@@ -34,7 +34,7 @@ app.post('/moviedb', function (req, res, next) {
 
   app.put('/moviedb', function (req, res, next) {
     connection.query(
-      'UPDATE `movie` SET `name_movie`= ?, `description`= ?, `release_date`= ?, `poster`= ? WHERE number = ?',
+      'UPDATE `movie` SET `name_movie`, `description`, `release_date`, `poster` WHERE number = ? ',
       [req.body.name_movie, req.body.description, req.body.release_date, req.body.poster, req.body.number],
       function(err, results) {
         res.json(results);
