@@ -1,8 +1,9 @@
-const express = require('express')
-const cors = require('cors')
+var express = require('express')
+var cors = require('cors')
+var app = express()
+
 const mysql = require('mysql2')
 require('dotenv').config()
-const app = express()
 
 
 app.use(cors())
@@ -17,7 +18,7 @@ app.get('/moviedb', (req, res) =>{
         'SELECT * FROM movie',
         function(err, results, fields){
             console.log(results)
-            res.send(results)
+            res.json(results)
         }
     )
 })
